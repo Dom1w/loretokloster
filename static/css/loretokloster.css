@@ -1,0 +1,51 @@
+:root {
+  --color-primary: #9e7831;
+  --color-primary-dark: #5c2d22;
+  --color-accent: #caa04a;
+  --color-bg: #f7f3eb;
+  --color-bg-alt: #e9e2d5;
+
+  --glass-bg: rgba(248, 245, 236, 0.58);
+  --glass-bg-strong: rgba(244, 240, 229, 0.84);
+  --glass-border: rgba(217, 202, 170, 0.46);
+  --page-glow-1: rgba(158, 120, 49, 0.22);
+  --page-glow-2: rgba(122, 50, 39, 0.14);
+  --page-glow-3: rgba(202, 160, 74, 0.18);
+}
+
+.site-header {
+  background: linear-gradient(180deg, rgba(246, 241, 231, 0.86), rgba(235, 233, 224, 0.74));
+}
+
+.hero {
+  background:
+    radial-gradient(circle at top right, rgba(226, 192, 108, 0.32), transparent 30%),
+    radial-gradient(circle at left center, rgba(143, 56, 45, 0.18), transparent 42%),
+    linear-gradient(135deg, #6e3428, #9a7836 54%, #d5b56d 100%);
+}
+
+.hero::after {
+  background:
+    linear-gradient(180deg, rgba(83, 42, 26, 0.08), rgba(64, 30, 24, 0.24)),
+    radial-gradient(circle at top left, rgba(255, 235, 195, 0.22), transparent 30%);
+}
+
+.site-footer {
+  background: linear-gradient(180deg, rgba(245, 240, 230, 0.9), rgba(231, 236, 231, 0.82));
+  border-top: 1px solid color-mix(in srgb, var(--glass-border) 72%, var(--color-primary) 14%);
+  color: #2b2119;
+}
+
+.site-footer p,
+.site-footer li,
+.site-footer h4,
+.site-footer a,
+.site-footer .footer-html,
+.site-footer .footer-html * {
+  color: #2b2119;
+}
+
+.site-footer a {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
