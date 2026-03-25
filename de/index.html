@@ -25,23 +25,27 @@
     <meta property="og:title" content="Loretokloster Salzburg">
     <meta property="og:site_name" content="Loretokloster Salzburg">
     <meta property="og:description" content="">
-    <meta property="og:url" content="https://loretokloster.at/de/">
-    <meta property="og:image" content="https://loretokloster.at/static/hero.jpg">
+    <meta property="og:url" content="https://www.maria-loreto-kapuzinerinnen.com/de/">
+    <meta property="og:image" content="https://www.maria-loreto-kapuzinerinnen.com/static/hero.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Loretokloster Salzburg">
     <meta name="twitter:description" content="">
-    <meta name="twitter:image" content="https://loretokloster.at/static/hero.jpg">
-    <link rel="icon" type="image/png" href="../static/img/logo.png?v=1774297244">
+    <meta name="twitter:image" content="https://www.maria-loreto-kapuzinerinnen.com/static/hero.jpg">
+    <link rel="icon" type="image/png" href="../static/img/logo.png?v=1774468427">
     
     <!-- Alternate language links for SEO -->
     
-    <link rel="alternate" hreflang="de" href="../de/">
-    
-    <link rel="alternate" hreflang="en" href="../en/">
     
     
-    <link rel="stylesheet" href="../static/css/main.css?v=1774297244">
-    <link rel="stylesheet" href="../static/css/loretokloster.css?v=1774297244">
+    <link rel="alternate" hreflang="de" href="https://www.maria-loreto-kapuzinerinnen.com/de/">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.maria-loreto-kapuzinerinnen.com/en/">
+    
+    
+    <link rel="stylesheet" href="../static/css/main.css?v=1774468427">
+    <link rel="stylesheet" href="../static/css/loretokloster.css?v=1774468427">
     
 </head>
 <body>
@@ -51,7 +55,7 @@
     <header class="site-header">
         <div class="container">
             <a href="../de/" class="logo">
-                <img src="../static/img/logo.png?v=1774297244" alt="Loretokloster Salzburg" class="logo-image">
+                <img src="../static/img/logo.png?v=1774468427" alt="Loretokloster Salzburg" class="logo-image">
                 
                 <span class="logo-text">Loretokloster Salzburg</span>
                 
@@ -114,32 +118,32 @@
                     
                     
                 </nav>
-                <div class="header-actions">
+            </div>
+            <div class="header-actions">
+                
+                <nav class="lang-switch">
                     
-                    <nav class="lang-switch">
                         
-                            
-                            <a href="../de/"
-                               class="active">
-                                DE
-                            </a>
-                            
-                            <a href="../en/"
-                               class="">
-                                EN
-                            </a>
-                            
+                        <a href="../de/"
+                           class="active">
+                            DE
+                        </a>
                         
-                    </nav>
+                        <a href="../en/"
+                           class="">
+                            EN
+                        </a>
+                        
                     
-                    <a href="../de/sitemap.html" class="site-overview-trigger" aria-label="Sitemap" title="Sitemap">
-                        <svg class="site-overview-trigger__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 7.5H19"></path>
-                            <path d="M5 12H19"></path>
-                            <path d="M5 16.5H19"></path>
-                        </svg>
-                    </a>
-                </div>
+                </nav>
+                
+                <a href="../de/sitemap.html" class="site-overview-trigger" aria-label="Sitemap" title="Sitemap">
+                    <svg class="site-overview-trigger__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 7.5H19"></path>
+                        <path d="M5 12H19"></path>
+                        <path d="M5 16.5H19"></path>
+                    </svg>
+                </a>
             </div>
             <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false">
                 <span class="burger-line"></span>
@@ -215,6 +219,8 @@
             </a>
         </nav>
     </div>
+
+    
     
     <main class="site-main">
         
@@ -671,6 +677,8 @@
         const burgerBtn = document.getElementById('burgerBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileLangMenu = document.getElementById('mobileLangMenu');
+        const mobileLangMenuClose = document.getElementById('mobileLangMenuClose');
         const desktopDropdownToggles = Array.from(document.querySelectorAll('.dropdown-toggle'));
         
         function openMobileMenu() {
@@ -686,12 +694,32 @@
             if (burgerBtn) burgerBtn.setAttribute('aria-expanded', 'false');
             document.body.style.overflow = '';
         }
+
+        function openMobileLangMenu() {
+            if (!mobileLangMenu) return;
+            mobileLangMenu.classList.add('open');
+            mobileLangMenu.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileLangMenu() {
+            if (!mobileLangMenu) return;
+            mobileLangMenu.classList.remove('open');
+            mobileLangMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
         
         if (burgerBtn) burgerBtn.addEventListener('click', openMobileMenu);
         if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
         if (mobileMenu) {
             mobileMenu.addEventListener('click', function(e) {
                 if (e.target === mobileMenu) closeMobileMenu();
+            });
+        }
+        if (mobileLangMenuClose) mobileLangMenuClose.addEventListener('click', closeMobileLangMenu);
+        if (mobileLangMenu) {
+            mobileLangMenu.addEventListener('click', function(e) {
+                if (e.target === mobileLangMenu) closeMobileLangMenu();
             });
         }
         if (mobileMenu) {
@@ -720,6 +748,12 @@
         document.addEventListener('click', function(e) {
             const toggle = e.target.closest('.dropdown-toggle');
             if (toggle) {
+                if (toggle.closest('.lang-switch-dropdown-wrap') && window.matchMedia('(max-width: 900px)').matches) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openMobileLangMenu();
+                    return;
+                }
                 const group = toggle.closest('.dropdown, .dropdown-item-has-children');
                 if (!group) return;
                 e.preventDefault();
@@ -738,6 +772,7 @@
         });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) closeMobileMenu();
+            if (e.key === 'Escape' && mobileLangMenu && mobileLangMenu.classList.contains('open')) closeMobileLangMenu();
             if (e.key === 'Escape') closeDesktopDropdowns();
         });
     </script>
