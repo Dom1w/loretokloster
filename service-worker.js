@@ -1,4 +1,4 @@
-const CACHE_NAME = "loretokloster-pwa-214e35c95c25";
+const CACHE_NAME = "loretokloster-pwa-26dd24446248";
 const PRECACHE_URLS = [
   "./",
   "de/",
@@ -11,8 +11,8 @@ const PRECACHE_URLS = [
   "manifest.webmanifest",
   "robots.txt",
   "sitemap.xml",
-  "static/css/loretokloster.css?v=214e35c95c25",
-  "static/css/main.css?v=214e35c95c25",
+  "static/css/loretokloster.css?v=26dd24446248",
+  "static/css/main.css?v=26dd24446248",
   "static/img/logo.png"
 ];
 const OFFLINE_HTML = "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Loretokloster Salzburg</title><style>body{font-family:system-ui,sans-serif;background:#f7f3ee;color:#2a1a14;margin:0;min-height:100vh;display:grid;place-items:center;padding:24px}.card{max-width:38rem;background:#fff;border-radius:20px;padding:24px;box-shadow:0 18px 50px rgba(42,26,20,.12)}h1{margin-top:0}p{line-height:1.6}</style></head><body><div class=\"card\"><h1>Offline</h1><p>This page is not available offline yet. Reconnect and open it once to store it for later.</p></div></body></html>";
