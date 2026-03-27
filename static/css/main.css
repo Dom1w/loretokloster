@@ -1732,7 +1732,7 @@ a:hover {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.55rem;
-    margin: 0 0 1.1rem;
+    margin: 1.3rem 0 0;
     padding: 0.5rem 0;
 }
 
@@ -1777,7 +1777,7 @@ a:hover {
     align-items: center;
     gap: 0.45rem;
     width: fit-content;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
     padding: 0.55rem 0.8rem;
     font-size: 0.92rem;
     font-weight: 500;
