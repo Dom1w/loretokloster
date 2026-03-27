@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "Loretokloster Salzburg",
+  "short_name": "Loretokloster Salzburg",
+  "description": "Loretokloster Salzburg",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#7a1f1f",
+  "background_color": "#f7f3ee",
+  "icons": [
+    {
+      "src": "static/img/logo.png",
+      "type": "image/png",
+      "purpose": "any",
+      "sizes": "256x256"
+    }
+  ]
+}
