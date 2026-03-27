@@ -36,9 +36,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Loretokloster Salzburg">
-    <link rel="icon" type="image/png" href="../static/img/logo.png?v=93652fa83fd7">
-    <link rel="apple-touch-icon" href="../static/img/logo.png?v=93652fa83fd7">
-    <link rel="manifest" href="../manifest.webmanifest?v=93652fa83fd7">
+    <link rel="icon" type="image/png" href="../static/img/logo.png?v=a3f3d1641d09">
+    <link rel="apple-touch-icon" href="../static/img/logo.png?v=a3f3d1641d09">
+    <link rel="manifest" href="../manifest.webmanifest?v=a3f3d1641d09">
     
     <!-- Alternate language links for SEO -->
     
@@ -51,8 +51,8 @@
     <link rel="alternate" hreflang="en" href="https://www.maria-loreto-kapuzinerinnen.com/en/sitemap.html">
     
     
-    <link rel="stylesheet" href="../static/css/main.css?v=93652fa83fd7">
-    <link rel="stylesheet" href="../static/css/loretokloster.css?v=93652fa83fd7">
+    <link rel="stylesheet" href="../static/css/main.css?v=a3f3d1641d09">
+    <link rel="stylesheet" href="../static/css/loretokloster.css?v=a3f3d1641d09">
     
 </head>
 <body>
@@ -71,7 +71,7 @@
     <header class="site-header">
         <div class="container">
             <a href="../en/" class="logo">
-                <img src="../static/img/logo.png?v=93652fa83fd7" alt="Loretokloster Salzburg" class="logo-image">
+                <img src="../static/img/logo.png?v=a3f3d1641d09" alt="Loretokloster Salzburg" class="logo-image">
                 
                 <span class="logo-text">Loretokloster Salzburg</span>
                 
@@ -257,6 +257,14 @@
                 </svg>
                 <span>Sitemap</span>
             </a>
+            <button type="button" class="mobile-nav-link mobile-nav-link--install" id="mobileInstallButton" hidden>
+                <svg class="mobile-nav-link__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3.5V14.5"></path>
+                    <path d="M8 10.5L12 14.5L16 10.5"></path>
+                    <path d="M5 17.5H19"></path>
+                </svg>
+                <span>Install app</span>
+            </button>
         </nav>
     </div>
 
@@ -442,6 +450,8 @@
         const siteSearch = document.querySelector('.site-search');
         const siteSearchTrigger = siteSearch ? siteSearch.querySelector('.site-search-trigger') : null;
         const siteSearchInput = siteSearch ? siteSearch.querySelector('.site-search-input') : null;
+        const mobileInstallButton = document.getElementById('mobileInstallButton');
+        let deferredInstallPrompt = null;
 
         function buildGoogleSearchUrl(scope, term) {
             const query = (scope ? `site:${scope} ` : '') + term;
@@ -581,6 +591,32 @@
             if (e.key === 'Escape') closeDesktopDropdowns();
             if (e.key === 'Escape') closeSiteSearch();
         });
+
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            if (mobileInstallButton) mobileInstallButton.hidden = false;
+        });
+
+        window.addEventListener('appinstalled', function() {
+            deferredInstallPrompt = null;
+            if (mobileInstallButton) mobileInstallButton.hidden = true;
+        });
+
+        if (mobileInstallButton) {
+            mobileInstallButton.addEventListener('click', async function() {
+                if (!deferredInstallPrompt) return;
+                deferredInstallPrompt.prompt();
+                try {
+                    await deferredInstallPrompt.userChoice;
+                } catch (error) {
+                    console.warn('Install prompt failed:', error);
+                }
+                deferredInstallPrompt = null;
+                mobileInstallButton.hidden = true;
+                closeMobileMenu();
+            });
+        }
 
         if ('serviceWorker' in navigator && (window.isSecureContext || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
             window.addEventListener('load', function() {
