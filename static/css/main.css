@@ -1206,8 +1206,8 @@ a:hover {
 /* Make raw HTML lists inside body content read well across all lesson pages. */
 .section-body ul,
 .section-body ol {
-    margin: 0.35rem 0 0.35rem var(--space-md);
-    padding-left: var(--space-md);
+    margin: 0.25rem 0 0.25rem 1.1rem;
+    padding-left: 1.1rem;
 }
 
 .section-body ul {
@@ -1361,7 +1361,7 @@ a:hover {
 
 .section-list li {
     padding: 0.18rem 0;
-    padding-left: var(--space-md);
+    padding-left: 1.22rem;
     position: relative;
 }
 
@@ -1373,29 +1373,46 @@ a:hover {
 }
 
 .section-list > .section-list-item--has-children {
-    padding-left: var(--space-md);
+    padding-left: 1.22rem;
 }
 
 .section-ordered-list {
-    margin-top: 0.35rem;
-    padding-left: var(--space-md);
+    margin-top: 0.25rem;
+    padding-left: 1.22rem;
 }
 
 .section-ordered-list li {
     padding: 0.18rem 0;
 }
 
+.section-ordered-list .section-list {
+    margin-top: 0.1rem;
+    padding-left: 0.6rem;
+}
+
+.section-ordered-list .section-list li {
+    padding-left: 1.05rem;
+}
+
 @media (max-width: 768px) {
     .section-list li {
-        padding-left: calc(var(--space-md) * 0.5);
+        padding-left: 1rem;
     }
 
     .section-list > .section-list-item--has-children {
-        padding-left: calc(var(--space-md) * 0.5);
+        padding-left: 1rem;
     }
 
     .section-ordered-list {
-        padding-left: calc(var(--space-md) * 0.5);
+        padding-left: 1rem;
+    }
+
+    .section-ordered-list .section-list {
+        padding-left: 0.45rem;
+    }
+
+    .section-ordered-list .section-list li {
+        padding-left: 0.9rem;
     }
 }
 
