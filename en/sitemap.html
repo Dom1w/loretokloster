@@ -8,6 +8,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,9 +38,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Loretokloster Salzburg">
-    <link rel="icon" type="image/png" href="../static/img/logo.png?v=9563e64b7054">
-    <link rel="apple-touch-icon" href="../static/img/logo.png?v=9563e64b7054">
-    <link rel="manifest" href="../manifest.webmanifest?v=9563e64b7054">
+    <link rel="icon" type="image/png" href="../static/img/logo.png?v=931c19fcdb85">
+    <link rel="apple-touch-icon" href="../static/img/logo.png?v=931c19fcdb85">
+    <link rel="manifest" href="../manifest.webmanifest?v=931c19fcdb85">
     
     <!-- Alternate language links for SEO -->
     
@@ -51,8 +53,8 @@
     <link rel="alternate" hreflang="en" href="https://www.maria-loreto-kapuzinerinnen.com/en/sitemap.html">
     
     
-    <link rel="stylesheet" href="../static/css/main.css?v=9563e64b7054">
-    <link rel="stylesheet" href="../static/css/loretokloster.css?v=9563e64b7054">
+    <link rel="stylesheet" href="../static/css/main.css?v=931c19fcdb85">
+    <link rel="stylesheet" href="../static/css/loretokloster.css?v=931c19fcdb85">
     
 </head>
 <body>
@@ -71,7 +73,7 @@
     <header class="site-header">
         <div class="container">
             <a href="../en/" class="logo">
-                <img src="../static/img/logo.png?v=9563e64b7054" alt="Loretokloster Salzburg" class="logo-image">
+                <img src="../static/img/logo.png?v=931c19fcdb85" alt="Loretokloster Salzburg" class="logo-image">
                 
                 <span class="logo-text">Loretokloster Salzburg</span>
                 
@@ -193,6 +195,7 @@
             
             
     
+    
         
         <a href="../en/" class="mobile-nav-link mobile-nav-link--top-level mobile-nav-level-0">Home</a>
         
@@ -200,12 +203,14 @@
             
             
     
+    
         
         <a href="../en/375-jahre-gnadenreiches-loretokindlein-in-salzburg.html" class="mobile-nav-link mobile-nav-link--top-level mobile-nav-level-0">375 Years</a>
         
     
             
             
+    
     
     <div class="mobile-nav-group mobile-nav-level-0">
         <button type="button" class="mobile-nav-group-toggle mobile-nav-level-0" aria-expanded="false">
@@ -219,6 +224,7 @@
             
             
     
+    
         
         <a href="https://www.mpl-apostolate.com/faltbildchen/gebete-zum-gnadenreichen-loretokindl-von-salzbug" target="_blank" rel="noopener noreferrer" class="mobile-nav-link mobile-nav-level-1">Prayers to the Loreto Child</a>
         
@@ -226,12 +232,14 @@
             
             
     
+    
         
         <a href="https://www.sagen.at/doku/Loreto/Loretokindlein.html" target="_blank" rel="noopener noreferrer" class="mobile-nav-link mobile-nav-level-1">Legend of the Loreto Child</a>
         
     
             
             
+    
     
         
         <a href="https://www.mpl-apostolate.com/" target="_blank" rel="noopener noreferrer" class="mobile-nav-link mobile-nav-level-1">Apostolate</a>
@@ -450,6 +458,7 @@
         const siteSearch = document.querySelector('.site-search');
         const siteSearchTrigger = siteSearch ? siteSearch.querySelector('.site-search-trigger') : null;
         const siteSearchInput = siteSearch ? siteSearch.querySelector('.site-search-input') : null;
+        const notFoundSearchConfig = null;
         const mobileInstallButton = document.getElementById('mobileInstallButton');
         let deferredInstallPrompt = null;
 
@@ -481,6 +490,136 @@
                 window.location.href = buildGoogleSearchUrl(scope, term);
             });
         });
+
+        function normalizeSearchText(value) {
+            return (value || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]+/g, ' ')
+                .trim();
+        }
+
+        function extract404SearchTerm(allLangs) {
+            const segments = window.location.pathname
+                .split('/')
+                .map(function(segment) {
+                    try {
+                        return decodeURIComponent(segment);
+                    } catch (error) {
+                        return segment;
+                    }
+                })
+                .filter(Boolean)
+                .filter(function(segment) {
+                    return segment !== '404.html' && !allLangs.includes(segment.toLowerCase());
+                });
+            if (!segments.length) return '';
+            const lastSegment = segments[segments.length - 1].replace(/\.html?$/i, '');
+            return lastSegment.replace(/[-_]+/g, ' ').trim();
+        }
+
+        function score404Match(entry, normalizedTerm, normalizedTokens) {
+            const normalizedSlug = normalizeSearchText(entry.slug || '');
+            const normalizedTitle = normalizeSearchText(entry.title || '');
+            const haystack = `${normalizedSlug} ${normalizedTitle}`.trim();
+            if (!haystack) return 0;
+            let score = 0;
+            if (normalizedSlug === normalizedTerm) score += 120;
+            if (normalizedTitle === normalizedTerm) score += 115;
+            if (normalizedSlug.includes(normalizedTerm)) score += 70;
+            if (normalizedTitle.includes(normalizedTerm)) score += 55;
+            normalizedTokens.forEach(function(token) {
+                if (token && normalizedSlug.split(' ').includes(token)) score += 20;
+                else if (token && normalizedSlug.includes(token)) score += 10;
+                if (token && normalizedTitle.split(' ').includes(token)) score += 16;
+                else if (token && normalizedTitle.includes(token)) score += 8;
+            });
+            return score;
+        }
+
+        function setupNotFoundSearch() {
+            if (!notFoundSearchConfig || !notFoundSearchConfig.entries) return;
+            const form = document.querySelector('[data-not-found-search-form]');
+            if (!form) return;
+            const input = form.querySelector('input[name="term"]');
+            const results = document.querySelector('[data-not-found-search-results]');
+            const resultsList = document.querySelector('[data-not-found-search-results-list]');
+            const empty = document.querySelector('[data-not-found-search-empty]');
+            const googleButton = document.querySelector('[data-not-found-google-search]');
+            const inferredTerm = extract404SearchTerm(["de", "en"]);
+            const scope = "www.maria-loreto-kapuzinerinnen.com";
+
+            function renderMatches(term) {
+                if (!results || !resultsList || !empty) return;
+                const normalizedTerm = normalizeSearchText(term);
+                const normalizedTokens = normalizedTerm.split(' ').filter(Boolean);
+                if (!normalizedTerm) {
+                    results.hidden = true;
+                    empty.hidden = true;
+                    resultsList.innerHTML = '';
+                    return;
+                }
+                const matches = notFoundSearchConfig.entries
+                    .map(function(entry) {
+                        return {
+                            entry: entry,
+                            score: score404Match(entry, normalizedTerm, normalizedTokens)
+                        };
+                    })
+                    .filter(function(item) {
+                        return item.score > 0;
+                    })
+                    .sort(function(a, b) {
+                        return b.score - a.score || a.entry.title.localeCompare(b.entry.title);
+                    })
+                    .slice(0, 6);
+
+                resultsList.innerHTML = '';
+                if (!matches.length) {
+                    results.hidden = true;
+                    empty.hidden = false;
+                    return;
+                }
+
+                matches.forEach(function(item) {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = `../${item.entry.path}`;
+                    link.textContent = item.entry.title;
+                    li.appendChild(link);
+                    resultsList.appendChild(li);
+                });
+                empty.hidden = true;
+                results.hidden = false;
+            }
+
+            if (inferredTerm && input && !input.value) {
+                input.value = inferredTerm;
+                renderMatches(inferredTerm);
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const term = input ? input.value.trim() : '';
+                renderMatches(term);
+            });
+
+            if (input) {
+                input.addEventListener('input', function() {
+                    renderMatches(input.value.trim());
+                });
+            }
+
+            if (googleButton) {
+                googleButton.addEventListener('click', function() {
+                    const term = input ? input.value.trim() : inferredTerm;
+                    if (!term) return;
+                    window.location.href = buildGoogleSearchUrl(scope, term);
+                });
+            }
+        }
+        setupNotFoundSearch();
         
         function openMobileMenu() {
             mobileMenu.classList.add('open');

@@ -1203,6 +1203,13 @@ a:hover {
     border-radius: 6px;
 }
 
+/* Let transparent PNG artwork render as true cutouts instead of framed cards. */
+.image-transparent {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
 /* Make raw HTML lists inside body content read well across all lesson pages. */
 .section-body ul,
 .section-body ol {
@@ -1317,6 +1324,12 @@ a:hover {
     gap: var(--space-md);
 }
 
+.section-with-image-stack-left .section-media {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
 .section-with-two-images .section-inner {
     flex: 1 1 56%;
     max-width: 56%;
@@ -1341,6 +1354,43 @@ a:hover {
     line-height: 1.45;
 }
 
+.section-image-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: var(--space-md);
+}
+
+.section-image-row__item {
+    flex: 1 1 min(260px, 100%);
+    max-width: min(100%, 360px);
+    margin: 0;
+}
+
+.section-image-row__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    box-shadow: 0 18px 42px rgba(22, 15, 10, 0.16);
+}
+
+.section-image-row__caption,
+.section-image-row__group-caption {
+    margin-top: var(--space-xs);
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    line-height: 1.45;
+    text-align: center;
+}
+
+.section-image-row__group-caption {
+    margin-top: 0.85rem;
+}
+
 @media (max-width: 768px) {
     .section-with-image,
     .section-with-image--right {
@@ -1351,6 +1401,11 @@ a:hover {
     .section-with-image .section-media {
         max-width: 100%;
         flex: 1 1 auto;
+    }
+
+    .section-image-row__item {
+        flex-basis: 100%;
+        max-width: 100%;
     }
 }
 
@@ -1761,6 +1816,89 @@ a:hover {
 .mobile-search-submit {
     padding: 0.82rem 1rem;
     font-size: 0.98rem;
+}
+
+.not-found-search-form {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+}
+
+.not-found-search-label {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.not-found-search-input {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-text);
+    font: inherit;
+}
+
+.not-found-search-input:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--color-primary) 48%, white);
+    outline-offset: 2px;
+}
+
+.not-found-search-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.not-found-search-submit,
+.not-found-search-secondary {
+    border: 0;
+    border-radius: 999px;
+    padding: 0.8rem 1.15rem;
+    font: inherit;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.not-found-search-submit {
+    background: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: 0 12px 24px color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+.not-found-search-secondary {
+    background: color-mix(in srgb, var(--color-bg-alt) 72%, white);
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent);
+}
+
+.not-found-search-submit:hover,
+.not-found-search-submit:focus-visible,
+.not-found-search-secondary:hover,
+.not-found-search-secondary:focus-visible {
+    transform: translateY(-1px);
+}
+
+.not-found-search-empty {
+    margin: 0.9rem 0 0;
+    color: var(--color-text-muted, color-mix(in srgb, var(--color-text) 72%, white));
+}
+
+.not-found-search-results {
+    margin-top: 1.4rem;
+}
+
+.not-found-search-results h3 {
+    margin-bottom: 0.8rem;
+}
+
+.not-found-search-results-list {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.not-found-search-results-list li + li {
+    margin-top: 0.5rem;
 }
 
 .mobile-nav-link {
