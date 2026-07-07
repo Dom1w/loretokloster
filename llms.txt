@@ -1,0 +1,18 @@
+# Loretokloster Salzburg
+
+> Website der Kapuzinerinnen von der Ewigen Anbetung, St. Maria Loreto in Salzburg, mit Informationen zu Gottesdienstzeiten, Beichtzeiten, Kloster, Kirche, Loreto-Kindlein und Kontakt.
+
+Die Website dient Besuchern und Pilgern als kompakte Orientierung zum Loretokloster Salzburg und zur Kirche St. Maria Loreto. Die deutsche Fassung ist die Quelle; englische Seiten sind Uebersetzungen.
+
+## Zentrale Einstiege
+
+- [Startseite](https://www.maria-loreto-kapuzinerinnen.com/de/): Gottesdienstordnung, Beichtzeiten, Kloster, Kirche, Loreto-Kindlein und Kontakt.
+- [375 Jahre](https://www.maria-loreto-kapuzinerinnen.com/de/375-jahre-gnadenreiches-loretokindlein-in-salzburg.html): Jubilaeumsseite zum gnadenreichen Loretokindlein in Salzburg.
+- [Sitemap Deutsch](https://www.maria-loreto-kapuzinerinnen.com/de/sitemap.html): Vollstaendige deutschsprachige Seitenuebersicht.
+- [English homepage](https://www.maria-loreto-kapuzinerinnen.com/en/): English overview.
+
+## Externe Kontexte
+
+- [Gebete zum Loretokindl](https://www.mpl-apostolate.com/faltbildchen/gebete-zum-gnadenreichen-loretokindl-von-salzbug): Externe Gebetsseite auf MPL Apostolate.
+- [Sage vom Loretokindlein](https://www.sagen.at/doku/Loreto/Loretokindlein.html): Externer Hintergrund zur Legende.
+- [XML-Sitemap](https://www.maria-loreto-kapuzinerinnen.com/sitemap.xml): Maschinenlesbare Liste aller gebauten Seiten.

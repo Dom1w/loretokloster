@@ -932,6 +932,14 @@ a:hover {
     margin-bottom: 0.6rem;
 }
 
+.hero-date {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-bottom: 0.3rem;
+}
+
 .hero-subtitle {
     font-size: 1.3rem;
     opacity: 0.95;
@@ -1093,6 +1101,33 @@ a:hover {
     max-width: 100%;
 }
 
+.section-action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1rem;
+    margin-top: 0.35rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--glass-border) 72%, var(--color-primary) 18%);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--glass-bg-strong) 94%, var(--color-white) 6%),
+        color-mix(in srgb, var(--glass-bg) 90%, transparent)
+    );
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    box-shadow: var(--glass-highlight), 0 12px 24px rgba(82, 18, 29, 0.1);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+}
+
+.section-action-link:hover,
+.section-action-link:focus-visible {
+    color: var(--color-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--glass-highlight), 0 16px 30px rgba(82, 18, 29, 0.14);
+}
+
 .section-citation {
     margin: 0.7rem 0;
     padding: 0.72rem 1rem;
@@ -1204,12 +1239,6 @@ a:hover {
 }
 
 /* Let transparent PNG artwork render as true cutouts instead of framed cards. */
-.image-transparent {
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-}
-
 /* Make raw HTML lists inside body content read well across all lesson pages. */
 .section-body ul,
 .section-body ol {
@@ -1347,6 +1376,18 @@ a:hover {
     object-fit: contain;
 }
 
+.section-body img.image-transparent,
+.gs-image-row img.image-transparent,
+.gs-side-by-side__img.image-transparent,
+.section-image.image-transparent,
+.section-image-row__image.image-transparent,
+.gallery-item img.image-transparent,
+.hero-image.image-transparent {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
 .section-image-caption {
     margin-top: var(--space-xs);
     font-size: 0.9rem;
@@ -1421,7 +1462,7 @@ a:hover {
 }
 
 .section-list > .section-list-item::before {
-    content: '✦';
+    content: '✟';
     position: absolute;
     left: 0;
     color: var(--color-accent);
